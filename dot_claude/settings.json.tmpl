@@ -1,7 +1,7 @@
 {
   "env": {
-    "MEM0_API_KEY": "{{ env "MEM0_API_KEY" }}",
-    "GITHUB_TOKEN": "{{ env "GITHUB_TOKEN" }}"
+    "MEM0_API_KEY": "{{ output "pass-cli" "item" "view" "--vault-name" "Google" "--item-title" "MEM0_API_KEY" "--field" "password" | trim }}",
+    "GITHUB_TOKEN": "{{ output "pass-cli" "item" "view" "--vault-name" "Google" "--item-title" "GITHUB_TOKEN" "--field" "password" | trim }}"
   },
   "hooks": {
     "PreCompact": [
