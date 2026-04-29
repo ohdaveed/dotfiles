@@ -1,0 +1,61 @@
+{
+  "env": {
+    "MEM0_API_KEY": "{{ env "MEM0_API_KEY" }}",
+    "GITHUB_TOKEN": "{{ env "GITHUB_TOKEN" }}"
+  },
+  "hooks": {
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/local/bin/sqz hook precompact"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/local/bin/sqz hook claude"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/local/bin/sqz resume"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash {{ .chezmoi.homeDir }}/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true,
+    "mem0@mem0-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "mem0-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "mem0ai/mem0"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "theme": "dark-daltonized",
+  "editorMode": "normal",
+  "verbose": true,
+  "agentPushNotifEnabled": true
+}

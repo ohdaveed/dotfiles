@@ -1,0 +1,152 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "os",
+          "style": "diamond",
+          "leading_diamond": "\u256d\u2500\ue0b2",
+          "background": "#01579b",
+          "foreground": "#ffffff",
+          "template": " {{ if .WSL }}\ue712 on {{ end }}{{ .Icon }} ",
+          "options": {
+            "macos": "\ue711",
+            "linux": "\ue712",
+            "windows": "\ue70f"
+          }
+        },
+        {
+          "type": "text",
+          "style": "diamond",
+          "background": "#c2185b",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b0",
+          "template": " \uf015 "
+        },
+        {
+          "type": "status",
+          "style": "diamond",
+          "background": "#b71c1c",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b0",
+          "template": " \uf00d {{ .Meaning }} ",
+          "options": {
+            "always_enabled": false
+          }
+        },
+        {
+          "type": "path",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "background": "#4a148c",
+          "foreground": "#ffffff",
+          "options": {
+            "style": "full"
+          },
+          "template": " {{ .Path }} "
+        },
+        {
+          "type": "python",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "background": "#1b5e20",
+          "foreground": "#ffffff",
+          "options": {
+            "display_mode": "environment",
+            "fetch_virtual_env": true
+          },
+          "template": " \ue235 {{ if .Venv }}{{ .Venv }}{{ end }} "
+        },
+        {
+          "type": "git",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "background": "#191f48",
+          "foreground": "#43ccea",
+          "trailing_diamond": "\ue0b4",
+          "options": {
+            "fetch_status": true,
+            "branch_template": "{{ trunc 25 .Branch }}"
+          },
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }} "
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "battery",
+          "style": "diamond",
+          "leading_diamond": "\ue0b2",
+          "background": "#e65100",
+          "foreground": "#ffffff",
+          "options": {
+            "discharging_icon": "\uf242 ",
+            "charging_icon": "\uf240 ",
+            "charged_icon": "\uf240 "
+          },
+          "template": " {{ .Icon }}{{ .Percentage }}% "
+        },
+        {
+          "type": "sysinfo",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b2",
+          "invert_powerline": true,
+          "foreground": "#81ff91",
+          "template": "<#cc7eda> \u007C </><#7eb8da>RAM:</> {{ (div ((sub .PhysicalTotalMemory .PhysicalAvailableMemory)|float64) 1073741824.0) }}/{{ (div .PhysicalTotalMemory 1073741824.0) }}GB"
+        },
+        {
+          "type": "executiontime",
+          "style": "diamond",
+          "leading_diamond": "\ue0b2",
+          "trailing_diamond": "\ue0b0",
+          "background": "#455a64",
+          "foreground": "#ffffff",
+          "options": {
+            "style": "austin",
+            "threshold": 150
+          },
+          "template": " \uf252 {{ .FormattedMs }} "
+        },
+        {
+          "type": "time",
+          "style": "diamond",
+          "leading_diamond": "\ue0b2",
+          "trailing_diamond": "\ue0b0",
+          "background": "#263238",
+          "foreground": "#ffffff",
+          "options": {
+            "time_format": "15:04:05"
+          },
+          "template": " \uf017 {{ .CurrentDate | date .Format }} "
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "#01579b",
+          "template": "\u2570\u2500 "
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground": "#01579b",
+    "template": "\u2570\u2500\uf0da "
+  },
+  "final_space": true,
+  "version": 4
+}
