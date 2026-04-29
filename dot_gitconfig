@@ -1,0 +1,5 @@
+[credential]
+	helper = /usr/lib/git-core/git-credential-libsecret
+[user]
+	email = arrizon.david@gmail.com
+	name = David Arrizon
