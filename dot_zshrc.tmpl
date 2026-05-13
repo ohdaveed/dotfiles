@@ -1,0 +1,69 @@
+# ~/.zshrc — managed by chezmoi
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Zap plugin manager ────────────────────────────────────────────────────────
+[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] \
+  && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
+
+plug "zap-zsh/supercharge"
+plug "zsh-users/zsh-autosuggestions"
+plug "atoftegaard-git/zsh-omz-autocomplete"
+plug "zap-zsh/completions"
+plug "zap-zsh/exa"
+plug "GianniBYoung/omz-take"
+plug "zap-zsh/zap-prompt"
+plug "zsh-users/zsh-syntax-highlighting"
+plug "wintermi/zsh-rust"
+
+# ── Completion system ─────────────────────────────────────────────────────────
+autoload -Uz compinit
+compinit
+
+# ── fnm (Fast Node Manager) ───────────────────────────────────────────────────
+if command -v fnm &>/dev/null && [ -z "${FNM_MULTISHELL_PATH:-}" ]; then
+  eval "$(fnm env --use-on-cd --shell zsh)"
+fi
+
+# ── Bun ───────────────────────────────────────────────────────────────────────
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Bun completions
+if [ -s "$HOME/.bun/_bun" ]; then
+  source "$HOME/.bun/_bun"
+fi
+
+# ── uv (Python package manager) ───────────────────────────────────────────────
+export PATH="$HOME/.local/bin:$PATH"
+
+# uv shell completions
+if command -v uv &>/dev/null; then
+  eval "$(uv generate-shell-completion zsh)"
+fi
+
+# uvx completions
+if command -v uvx &>/dev/null; then
+  eval "$(uvx --generate-shell-completion zsh 2>/dev/null || true)"
+fi
+
+# ── GitHub CLI (gh) completions ───────────────────────────────────────────────
+if command -v gh &>/dev/null; then
+  eval "$(gh completion -s zsh)"
+fi
+
+# ── Claude CLI completions ────────────────────────────────────────────────────
+if command -v claude &>/dev/null; then
+  eval "$(claude completion zsh 2>/dev/null || true)"
+fi
+
+# ── Gemini CLI completions ────────────────────────────────────────────────────
+if command -v gemini &>/dev/null; then
+  eval "$(gemini completion zsh 2>/dev/null || true)"
+fi
+
+# ── PATH additions ────────────────────────────────────────────────────────────
+# ~/.local/bin (uv, uvx, pipx tools)
+[[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
+
+# ~/bin (personal scripts)
+[[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
