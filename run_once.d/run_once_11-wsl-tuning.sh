@@ -29,17 +29,27 @@ EOF
   echo "wsl.conf updated — restart WSL (wsl --shutdown) to apply."
 fi
 
-# ── ~/.wslconfig (Windows-side limits) ───────────────────────────────────────
-WSLCONFIG="$HOME/.wslconfig"
-if [ ! -f "$WSLCONFIG" ]; then
-  cat > "$WSLCONFIG" <<'EOF'
+# ── ~/.wslconfig (Windows-side limits, lives in the Windows user home) ────────
+# Detect the Windows user home via USERPROFILE or wslpath.
+WIN_HOME=""
+if command -v wslpath &>/dev/null && WIN_HOME_RAW="$(cmd.exe /C "echo %USERPROFILE%" 2>/dev/null | tr -d '\r')"; then
+  WIN_HOME="$(wslpath "$WIN_HOME_RAW" 2>/dev/null || true)"
+fi
+
+if [ -n "$WIN_HOME" ] && [ -d "$WIN_HOME" ]; then
+  WSLCONFIG="$WIN_HOME/.wslconfig"
+  if [ ! -f "$WSLCONFIG" ]; then
+    cat > "$WSLCONFIG" <<'EOF'
 [wsl2]
 memory=8GB
 processors=4
 swap=2GB
 localhostForwarding=true
 EOF
-  echo ".wslconfig written to $WSLCONFIG"
+    echo ".wslconfig written to $WSLCONFIG"
+  fi
+else
+  echo "Could not detect Windows home — skipping .wslconfig creation."
 fi
 
 # ── Disable case-insensitive filesystem FS flag warnings ─────────────────────

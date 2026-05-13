@@ -62,8 +62,5 @@ if command -v gemini &>/dev/null; then
 fi
 
 # ── PATH additions ────────────────────────────────────────────────────────────
-# ~/.local/bin (uv, uvx, pipx tools)
-[[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
-
 # ~/bin (personal scripts)
 [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"

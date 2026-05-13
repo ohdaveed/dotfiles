@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Install uv (Astral's Python package manager) and the Python version needed
-# by Claude CLI (3.11 — the minimum fully-supported release).
+# by Claude CLI.
 # Idempotent: checks guard files before each action.
 set -euo pipefail
 
