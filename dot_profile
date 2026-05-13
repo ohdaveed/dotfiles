@@ -25,4 +25,9 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
+if command -v fnm >/dev/null 2>&1 && [ -z "${FNM_MULTISHELL_PATH:-}" ]; then
+    eval "$(fnm env --use-on-cd --shell bash)"
+fi
+
 . "$HOME/.cargo/env"

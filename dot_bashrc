@@ -111,4 +111,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+if command -v fnm >/dev/null 2>&1 && [ -z "${FNM_MULTISHELL_PATH:-}" ]; then
+  eval "$(fnm env --use-on-cd --shell bash)"
+fi
+
 . "$HOME/.cargo/env"
