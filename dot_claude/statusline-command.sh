@@ -38,9 +38,9 @@ fi
 
 # --- Rate limits ---
 rate_part=""
-five=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
-if [ -n "$five" ]; then
-    rate_part=" | 5h:$(printf '%.0f' "$five")%"
+five_hour_usage=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+if [ -n "$five_hour_usage" ]; then
+    rate_part=" | 5h:$(printf '%.0f' "$five_hour_usage")%"
 fi
 
 printf "%s%s | %s%s%s%s" \
