@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
-# Install the Anthropic Claude CLI (@anthropic-ai/claude-code) globally via npm.
-# Idempotent: no-op if already installed.
 set -euo pipefail
 
-# Bootstrap fnm so `npm` is available.
-export PATH="$HOME/.local/share/fnm:$PATH"
-eval "$(fnm env)"
-
-if command -v claude &>/dev/null; then
-  echo "Claude CLI already installed: $(claude --version 2>/dev/null || true)"
-  exit 0
+if ! command -v claude >/dev/null 2>&1; then
+  curl -fsSL https://install.anthropic.com/claude/install.sh | sh
 fi
-
-npm install -g @anthropic-ai/claude-code

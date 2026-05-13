@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
-# Install Bun (JavaScript runtime & package manager).
-# Idempotent: no-op if already installed.
 set -euo pipefail
 
-if command -v bun &>/dev/null; then
-  echo "Bun already installed: $(bun --version)"
-  exit 0
+if ! command -v bun >/dev/null 2>&1; then
+  curl -fsSL https://bun.sh/install | bash
 fi
-
-curl -fsSL https://bun.sh/install | bash

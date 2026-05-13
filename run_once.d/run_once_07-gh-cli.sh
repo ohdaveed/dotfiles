@@ -1,26 +1,18 @@
 #!/usr/bin/env bash
-# Install the GitHub CLI (gh) via the official apt repository.
-# Idempotent: no-op if already installed.
 set -euo pipefail
 
-if command -v gh &>/dev/null; then
-  echo "gh already installed: $(gh --version | head -1)"
-  exit 0
-fi
+if ! command -v gh >/dev/null 2>&1; then
+  type -p curl >/dev/null || sudo apt install -y curl
 
-# Add the GitHub CLI apt repo.
-GH_KEYRING="/usr/share/keyrings/githubcli-archive-keyring.gpg"
-if [ ! -f "$GH_KEYRING" ]; then
-  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-    | sudo dd of="$GH_KEYRING"
-  sudo chmod go+r "$GH_KEYRING"
-fi
+  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
+    sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
 
-GH_LIST="/etc/apt/sources.list.d/github-cli.list"
-if [ ! -f "$GH_LIST" ]; then
-  echo "deb [arch=$(dpkg --print-architecture) signed-by=${GH_KEYRING}] https://cli.github.com/packages stable main" \
-    | sudo tee "$GH_LIST" > /dev/null
-  sudo apt-get update -qq
-fi
+  sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
 
-sudo apt-get install -y gh
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
+https://cli.github.com/packages stable main" | \
+    sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
+
+  sudo apt update
+  sudo apt install -y gh
+fi
