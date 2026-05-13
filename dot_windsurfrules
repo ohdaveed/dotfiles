@@ -1,0 +1,2 @@
+Use repository-local configuration and avoid hard-coded absolute paths.
+Do not assume optional local binaries are installed unless documented in this repository.

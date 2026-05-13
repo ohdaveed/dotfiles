@@ -1,0 +1,9 @@
+---
+description: shared AI workflow rules
+alwaysApply: true
+---
+
+# Shared AI workflow rules
+
+Use repository-local configuration and avoid hard-coded absolute paths.
+Do not assume optional local binaries are installed unless documented in this repository.

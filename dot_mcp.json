@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "claude": {
+      "command": "claude-mcp"
+    },
+    "gemini": {
+      "command": "gemini-mcp"
+    },
+    "codex": {
+      "command": "codex-mcp"
+    },
+    "cursortouch": {
+      "command": "cursortouch-mcp"
+    },
+    "windows": {
+      "command": "windows-mcp"
+    },
+    "windsurf": {
+      "command": "windsurf-mcp"
+    },
+    "github": {
+      "command": "github-mcp"
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ],
+      "env": {
+        "CONTEXT7_API_KEY": "<your-context7-api-key>"
+      }
+    }
+  }
+}

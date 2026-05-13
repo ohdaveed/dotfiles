@@ -1,0 +1,28 @@
+{
+  "env": {
+    "MEM0_API_KEY": "{{ output \"pass-cli\" \"item\" \"view\" \"--vault-name\" \"Google\" \"--item-title\" \"MEM0_API_KEY\" \"--field\" \"password\" | trim }}",
+    "GITHUB_TOKEN": "{{ output \"pass-cli\" \"item\" \"view\" \"--vault-name\" \"Google\" \"--item-title\" \"GITHUB_TOKEN\" \"--field\" \"password\" | trim }}"
+  },
+  "hooks": {},
+  "statusLine": {
+    "type": "command",
+    "command": "bash {{ .chezmoi.homeDir }}/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true,
+    "mem0@mem0-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "mem0-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "mem0ai/mem0"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "theme": "dark-daltonized",
+  "editorMode": "normal",
+  "verbose": true,
+  "agentPushNotifEnabled": true
+}
